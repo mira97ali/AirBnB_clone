@@ -29,8 +29,7 @@ class TestBaseModel(unittest.TestCase):
     
     def tearDown(self):
         """Actions after each test"""
-        self.mock_file_storage.stop()
-        self.mock_file_storage_objects.stop()
+        mock.patch.stopall()
 
     def test_uniq_id(self):
         """testing the uniqueness of IDs"""
