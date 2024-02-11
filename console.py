@@ -164,7 +164,8 @@ class HBNBCommand(cmd.Cmd):
             return
 
         instance_id = args[1]
-        if instance_id not in storage.all():
+        instance_full_id = f"{model_name}.{instance_id}"
+        if instance_full_id not in storage.all():
             print(NO_INSTANCE_FOUND_MESSAGE)
             return
 
@@ -179,7 +180,7 @@ class HBNBCommand(cmd.Cmd):
         attribute_name = args[2]
         attribute_value = args[3]
         instances = storage.all()
-        instance = instances[f"{model_name}.{instance_id}"]
+        instance = instances[instance_full_id]
         instance[attribute_name] = attribute_value
         storage.save()
 
