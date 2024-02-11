@@ -32,8 +32,9 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Creates a new instance of BaseModel, saves it to the JSON file, and prints the id
-        
+        """ Creates a new instance of BaseModel
+            saves it to the JSON file, and prints the id
+
         Usage:
             create <class name>
         """
@@ -51,8 +52,9 @@ class HBNBCommand(cmd.Cmd):
         print(instance.id)
 
     def do_show(self, arg):
-        """Prints the string representation of an instance based on the class name and id.
-        
+        """ Prints the string representation of
+            an instance based on the class name and id.
+
         Usage:
             show <class name> <instance id>
         """
@@ -78,8 +80,9 @@ class HBNBCommand(cmd.Cmd):
             print(result)
 
     def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id, and saves the change into the JSON file.
-        
+        """ Deletes an instance based on the class name and id
+            and saves the change into the JSON file.
+
         Usage:
             destroy <class name> <instance id>
         """
@@ -104,11 +107,12 @@ class HBNBCommand(cmd.Cmd):
             print(NO_INSTANCE_FOUND_MESSAGE)
 
     def do_all(self, arg):
-        """Prints all string representation of all instances based or not on the class name.
-        
+        """ Prints all string representation of all instances
+            based or not on the class name.
+
         Usage:
             all
-            all <class name> 
+            all <class name>
         """
         args = arg.split()
         if len(args) > 0 and args[0] not in self.models.keys():
@@ -121,10 +125,11 @@ class HBNBCommand(cmd.Cmd):
         print(instances)
 
     def do_update(self, arg):
-        """Updates an instance based on the class name and id by adding or updating attribute.
-        
+        """ Updates an instance based on the class name
+            and id by adding or updating attribute.
+
         Usage:
-            update <class name> <instance id> <attribute name> <attribute value>
+            update <class name> <instance id> <attr name> <attr value>
         """
         args = arg.split()
         if len(args) == 0:
