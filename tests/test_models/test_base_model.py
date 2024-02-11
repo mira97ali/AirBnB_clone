@@ -46,7 +46,7 @@ class TestBaseModel(unittest.TestCase):
         """testing if the save method is excuted well"""
         instance0 = base_model.BaseModel()
         instance0.save()
-        self.assertEqual(instance0.updated_at, instance0.created_at)
+        self.assertNotEqual(instance0.updated_at, instance0.created_at)
 
     def test_str_result(self):
         """testing the result of __str__"""
@@ -75,7 +75,8 @@ class TestBaseModel(unittest.TestCase):
         """testing if the kwargs work as expected"""
         kwargs_instance = base_model.BaseModel(
             id='56d43177-cc5f-4d6c-a0c1-e167f8c27337',
-            created_at='2017-09-28T21:03:54.052298'
+            created_at='2017-09-28T21:03:54.052298',
+            updated_at='2017-10-13T21:04:24.652283',
         )
         self.assertEqual(
             kwargs_instance.id,
