@@ -56,11 +56,12 @@ class HBNBCommand(cmd.Cmd):
             print(CLASS_MISSING_MESSAGE)
             return
 
-        if args[0] not in self.models.keys():
+        model_name = args[0]
+        if model_name not in self.models.keys():
             print(CLASS_NOT_EXIST_MESSAGE)
             return
 
-        instance = self.models[args[0]]()
+        instance = self.models[model_name]()
         instance.save()
         print(instance.id)
 
@@ -76,7 +77,8 @@ class HBNBCommand(cmd.Cmd):
             print(CLASS_MISSING_MESSAGE)
             return
 
-        if args[0] not in self.models.keys():
+        model_name = args[0]
+        if model_name not in self.models.keys():
             print(CLASS_NOT_EXIST_MESSAGE)
             return
 
@@ -85,8 +87,9 @@ class HBNBCommand(cmd.Cmd):
             return
 
         instances = storage.all()
+        instance_id = args[1]
         try:
-            result = instances[args[1]]
+            result = instances[f"{model_name}.{instance_id}"]
         except KeyError:
             print(NO_INSTANCE_FOUND_MESSAGE)
         else:
@@ -104,7 +107,8 @@ class HBNBCommand(cmd.Cmd):
             print(CLASS_MISSING_MESSAGE)
             return
 
-        if args[0] not in self.models.keys():
+        model_name = args[0]
+        if model_name not in self.models.keys():
             print(CLASS_NOT_EXIST_MESSAGE)
             return
 
@@ -113,8 +117,9 @@ class HBNBCommand(cmd.Cmd):
             return
 
         instances = storage.all()
-        if args[1] in instances:
-            del instances[args[1]]
+        instance_id = args[1]
+        if instance_id in instances:
+            del instances[f"{model_name}.{instance_id}"]
             storage.save()
         else:
             print(NO_INSTANCE_FOUND_MESSAGE)
@@ -149,8 +154,8 @@ class HBNBCommand(cmd.Cmd):
             print(CLASS_MISSING_MESSAGE)
             return
 
-        class_name = args[0]
-        if class_name not in self.models.keys():
+        model_name = args[0]
+        if model_name not in self.models.keys():
             print(CLASS_NOT_EXIST_MESSAGE)
             return
 
@@ -174,7 +179,7 @@ class HBNBCommand(cmd.Cmd):
         attribute_name = args[2]
         attribute_value = args[3]
         instances = storage.all()
-        instance = instances[instance_id]
+        instance = instances[f"{model_name}.{instance_id}"]
         instance[attribute_name] = attribute_value
         storage.save()
 
