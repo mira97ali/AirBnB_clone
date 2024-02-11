@@ -26,7 +26,7 @@ class TestBaseModel(unittest.TestCase):
             new_callable=lambda: {}
         )
         self.mock_file_storage_objects.start()
-    
+
     def tearDown(self):
         """Actions after each test"""
         mock.patch.stopall()
@@ -77,7 +77,9 @@ class TestBaseModel(unittest.TestCase):
             id='56d43177-cc5f-4d6c-a0c1-e167f8c27337',
             created_at='2017-09-28T21:03:54.052298'
         )
-        self.assertEqual(kwargs_instance.id, '56d43177-cc5f-4d6c-a0c1-e167f8c27337')
+        self.assertEqual(
+            kwargs_instance.id,
+            '56d43177-cc5f-4d6c-a0c1-e167f8c27337')
         self.assertIsInstance(kwargs_instance.created_at, datetime.datetime)
         testing_created_at = datetime.datetime.strptime(
             '2017-09-28T21:03:54.052298',

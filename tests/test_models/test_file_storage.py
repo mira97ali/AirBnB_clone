@@ -51,7 +51,10 @@ class TestFileStorage(unittest.TestCase):
         with mock.patch('builtins.open', mock.mock_open()) as mocked_file:
             instance = file_storage.FileStorage()
             instance.save()
-            mocked_file.assert_called_once_with("file.json", 'w', encoding="utf-8")
+            mocked_file.assert_called_once_with(
+                "file.json",
+                "w",
+                encoding="utf-8")
             mocked_file().write.assert_called_once_with('{}')
 
     def test_reload_file_not_found(self):
@@ -62,9 +65,18 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload_success(self):
         instance = file_storage.FileStorage()
-        with mock.patch('builtins.open', mock.mock_open(read_data='{"key": "value"}')) as mock_file:
-            with mock.patch('json.load', return_value={"key": "value"}) as mock_json_load:
+        with mock.patch(
+            'builtins.open',
+            mock.mock_open(read_data='{"key": "value"}')
+        ) as mock_file:
+            with mock.patch(
+                'json.load',
+                return_value={"key": "value"}
+            ) as mock_json_load:
                 file_storage.FileStorage.reload(self)
-                mock_file.assert_called_once_with("file.json", "r", encoding="utf-8")
+                mock_file.assert_called_once_with(
+                    "file.json",
+                    "r",
+                    encoding="utf-8")
                 self.assertDictEqual(instance.all(), {"key": "value"})
                 mock_json_load.assert_called_once()
