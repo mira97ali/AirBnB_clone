@@ -231,7 +231,7 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_update_by_command(self, class_name, args_str):
-        """Parses the update command from the default method and calls do_update."""
+        """Parses the update command from the default method."""
         args = args_str.split(', ')
         if len(args) < 3:
             print("** Invalid arguments **")
@@ -240,7 +240,8 @@ class HBNBCommand(cmd.Cmd):
         instance_id = args[0].strip('"\'')
         attribute_name = args[1].strip('"\'')
         attribute_value = args[2].strip('"\'')
-        self.do_update(f"{class_name} {instance_id} {attribute_name} {attribute_value}")
+        self.do_update(
+            f"{class_name} {instance_id} {attribute_name} {attribute_value}")
 
 
 if __name__ == '__main__':
