@@ -18,6 +18,7 @@ INSTANCE_ID_MISSING_MESSAGE = "** instance id missing **"
 NO_INSTANCE_FOUND_MESSAGE = "** no instance found **"
 ATTRIBUTE_NAME_MISSING_MESSAGE = "** attribute name missing **"
 ATTRIBUTE_VALUE_MISSING_MESSAGE = "** value missing **"
+UNKOWN_COMMAND_MESSAGE = "*** Unknown syntax:"
 
 
 class HBNBCommand(cmd.Cmd):
@@ -33,6 +34,41 @@ class HBNBCommand(cmd.Cmd):
         user.User.__name__: user.User,
     }
 
+    def default(self, line):
+        """Default"""
+        pattern = line.split('.')
+        if len(pattern) == 2:
+            class_name, command_with_args = pattern
+            if command_with_args.startswith("all()"):
+                self.do_all(class_name)
+            elif command_with_args.startswith("count()"):
+                self.do_count(class_name)
+            elif (
+                command_with_args.startswith("show(")
+                and
+                command_with_args.endswith(")")
+            ):
+                instance_id = command_with_args[5:-1].strip('"\'')
+                self.do_show(f"{class_name} {instance_id}")
+            elif (
+                command_with_args.startswith("destroy(")
+                and
+                command_with_args.endswith(")")
+            ):
+                instance_id = command_with_args[8:-1].strip('"\'')
+                self.do_destroy(f"{class_name} {instance_id}")
+            elif (
+                "update(" in command_with_args
+                and
+                command_with_args.endswith(")")
+            ):
+                args_str = command_with_args[7:-1]
+                self.do_update_by_command(class_name, args_str)
+            else:
+                print("*** Unknown syntax:", line)
+        else:
+            print("*** Unknown syntax:", line)
+
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
@@ -43,6 +79,15 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         pass
+
+    def do_count(self, class_name):
+        """Counts the number of instances of a class."""
+        count = 0
+        instances = storage.all()
+        for instance in instances.values():
+            if instance.__class__.__name__ == class_name:
+                count += 1
+        print(count)
 
     def do_create(self, arg):
         """ Creates a new instance of BaseModel
@@ -184,6 +229,18 @@ class HBNBCommand(cmd.Cmd):
         instance = instances[instance_full_id]
         setattr(instance, attribute_name, attribute_value)
         storage.save()
+
+    def do_update_by_command(self, class_name, args_str):
+        """Parses the update command from the default method and calls do_update."""
+        args = args_str.split(', ')
+        if len(args) < 3:
+            print("** Invalid arguments **")
+            return
+
+        instance_id = args[0].strip('"\'')
+        attribute_name = args[1].strip('"\'')
+        attribute_value = args[2].strip('"\'')
+        self.do_update(f"{class_name} {instance_id} {attribute_name} {attribute_value}")
 
 
 if __name__ == '__main__':
