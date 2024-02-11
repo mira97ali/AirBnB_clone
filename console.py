@@ -2,7 +2,7 @@
 """Console"""
 import cmd
 
-from models import base_model, storage
+from models import storage, base_model, user
 
 
 CLASS_MISSING_MESSAGE = "** class name missing **"
@@ -17,7 +17,8 @@ class HBNBCommand(cmd.Cmd):
     """AirBnB Clone console"""
     prompt = '(hbnb) '
     models = {
-        base_model.BaseModel.__name__: base_model.BaseModel
+        base_model.BaseModel.__name__: base_model.BaseModel,
+        user.User.__name__: user.User,
     }
 
     def do_quit(self, arg):

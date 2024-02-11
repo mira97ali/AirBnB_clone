@@ -14,7 +14,7 @@ class FileStorage:
         return FileStorage.__objects
 
     def new(self, obj):
-        FileStorage.__objects[obj.id] = obj.to_dict()
+        FileStorage.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj.to_dict()
 
     def save(self):
         with open(FileStorage.__file_path, "w", encoding="utf-8") as db:

@@ -43,7 +43,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertNotEqual(instance.all(), {})
         self.assertEqual(
             instance.all(),
-            {"mock_id": {"id": "mock_id"}}
+            {"MockBaseModel.mock_id": {"id": "mock_id"}}
         )
 
     def test_save_objects(self):
