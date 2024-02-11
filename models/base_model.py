@@ -18,7 +18,10 @@ class BaseModel:
                 kwargs['created_at'],
                 DATE_FORMAT
             )
-            self.updated_at = self.created_at
+            self.updated_at = datetime.datetime.strptime(
+                kwargs['updated_at'],
+                DATE_FORMAT
+            )
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.utcnow()
@@ -30,6 +33,7 @@ class BaseModel:
 
     def save(self):
         """Update and Save"""
+        self.updated_at = datetime.datetime.utcnow()
         storage.save()
 
     def to_dict(self):
