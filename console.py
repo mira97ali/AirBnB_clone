@@ -118,8 +118,9 @@ class HBNBCommand(cmd.Cmd):
 
         instances = storage.all()
         instance_id = args[1]
-        if instance_id in instances:
-            del instances[f"{model_name}.{instance_id}"]
+        instance_full_id = f"{model_name}.{instance_id}"
+        if instance_full_id in instances:
+            del instances[instance_full_id]
             storage.save()
         else:
             print(NO_INSTANCE_FOUND_MESSAGE)
@@ -181,7 +182,7 @@ class HBNBCommand(cmd.Cmd):
         attribute_value = args[3]
         instances = storage.all()
         instance = instances[instance_full_id]
-        instance[attribute_name] = attribute_value
+        setattr(instance, attribute_name, attribute_value)
         storage.save()
 
 
