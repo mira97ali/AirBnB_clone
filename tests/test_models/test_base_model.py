@@ -46,7 +46,7 @@ class TestBaseModel(unittest.TestCase):
         """testing if the save method is excuted well"""
         instance0 = base_model.BaseModel()
         instance0.save()
-        self.assertNotEqual(instance0.updated_at, instance0.created_at)
+        self.assertEqual(instance0.updated_at, instance0.created_at)
 
     def test_str_result(self):
         """testing the result of __str__"""

@@ -30,7 +30,6 @@ class BaseModel:
 
     def save(self):
         """Update and Save"""
-        self.updated_at = datetime.datetime.utcnow()
         storage.save()
 
     def to_dict(self):
