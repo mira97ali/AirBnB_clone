@@ -138,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
             return
         instances = []
         for obj in storage.all().values():
-            if len(args) == 0 or args[0] == obj["__class__"]:
+            if len(args) == 0 or args[0] == obj.__class__.__name__:
                 instances.append(str(obj))
         print(instances)
 
