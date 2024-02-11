@@ -2,7 +2,14 @@
 """Console"""
 import cmd
 
-from models import storage, base_model, user
+from models import amenity
+from models import base_model
+from models import city
+from models import place
+from models import storage
+from models import review
+from models import state
+from models import user
 
 
 CLASS_MISSING_MESSAGE = "** class name missing **"
@@ -18,6 +25,11 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     models = {
         base_model.BaseModel.__name__: base_model.BaseModel,
+        amenity.Amenity.__name__: amenity.Amenity,
+        city.City.__name__: city.City,
+        place.Place.__name__: place.Place,
+        review.Review.__name__: review.Review,
+        state.State.__name__: state.State,
         user.User.__name__: user.User,
     }
 
