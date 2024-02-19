@@ -74,6 +74,7 @@
     padding: 10px 0;
     width: 25%;
     display: none;
+    z-index: 1;
 }
 
 .popover li h2, .popover li h2 {
